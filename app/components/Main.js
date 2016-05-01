@@ -1,6 +1,5 @@
 var React = require('react');
 
-
 var mainStyle = {
 	height: '100%',
 	width: '100%',
