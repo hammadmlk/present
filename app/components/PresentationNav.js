@@ -1,4 +1,5 @@
 var React = require('react');
+var PropTypes = React.PropTypes;
 
 var slideNavStyle = {
 	display: 'flex',
@@ -24,14 +25,18 @@ var navButtonStyle = {
 	backgroundColor: 'rgba(222, 0, 0, 0.1)'
 };
 
-function PresentationNav () {
+function PresentationNav (props) {
 	return (
   	  <div className="slideNav" style={slideNavStyle}> 
-		<div className="navButton" style={navButtonStyle}> Btn </div>
-		<div className="navButton" style={navButtonStyle}> Btn </div>
+		<div className="navButton" style={navButtonStyle} onClick={props.onPrevSlide}> Prev </div>
+		<div className="navButton" style={navButtonStyle} onClick={props.onNextSlide}> Next </div>
 	  </div>
 	)
 };
 
+PresentationNav.propTypes = {
+  onPrevSlide: PropTypes.func.isRequired,
+  onNextSlide: PropTypes.func.isRequired,
+}
 
 module.exports = PresentationNav;

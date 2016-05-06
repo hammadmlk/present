@@ -5,12 +5,12 @@ var Route = ReactRouter.Route;
 var hashHistory = ReactRouter.hashHistory;
 var IndexRoute = ReactRouter.IndexRoute;
 var Main = require('../components/Main');
-var Presentation = require("../components/Presentation");
+var PresentationContainer = require("../containers/PresentationContainer");
 
 var routes = (
   <Router history={hashHistory}>
     <Route path='/' component={Main}>
-      <IndexRoute component={Presentation} />
+      <IndexRoute component={PresentationContainer} />
     </Route>
   </Router>
 );
