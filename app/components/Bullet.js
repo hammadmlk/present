@@ -2,8 +2,13 @@ var React = require('react');
 var PropTypes = React.PropTypes;
 
 var Link = require('./Link');
+var Utils = require('../utils/Utils');
 
 require('../scss/Bullet.scss');
+
+var getOpacityClass = function() {
+    return (Utils.isTouchDevice()) === true ? 'full-opacity' : '';
+}
 
 function Bullet(props) {
 
@@ -17,13 +22,13 @@ function Bullet(props) {
 
     return (
         <div className="bullet">
-          <div className='developer-name'>
+          <div className={ 'developer-name ' + getOpacityClass() }>
             { props.developer }
           </div>
           <div className="bullet-text">
             { props.text }
           </div>
-          <span className="link-list">{ linkList }</span>
+          <span className={ "link-list " + getOpacityClass() }>{ linkList }</span>
         </div>
     )
 }

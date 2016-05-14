@@ -19,6 +19,10 @@
         transition: all 1s ease;
     }
 
+    .full-opacity {
+        opacity: 1;
+    }
+
     &:hover {
         .developer-name {
             opacity: 1;
