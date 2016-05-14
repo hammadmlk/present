@@ -1,0 +1,42 @@
+// Slide
+.slide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+
+    .left-column {
+        height: 100%;
+        display: flex;
+        flex: 0 0 25%;
+        overflow: hidden;
+    }
+
+    .right-column {
+        display: flex;
+        flex: 0 0 75%;
+    }
+}
+
+// Slide Colors
+
+$slideColor1: rgb(44, 25, 255);
+$slideColor2: rgb(255, 0, 0);
+$slideColor3: rgb(155, 25, 55);
+$slideColor4: rgb(77, 33, 0);
+$slideColor5: rgb(99, 199, 57);
+$slideColor6: rgb(3, 35, 255);
+
+$colors: $slideColor1, $slideColor2, $slideColor3, $slideColor4, $slideColor5, $slideColor6;
+
+@for $i from 1 through length($colors) {
+    .slide-color-#{$i} {
+        .slide-title {
+            background-color: rgba(nth($colors, $i), 0.6);
+        }
+
+        a {
+            color: rgba(nth($colors, $i), 0.6);
+        }
+    }
+}
