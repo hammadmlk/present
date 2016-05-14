@@ -12,8 +12,9 @@
     }
 
     .right-column {
-        display: flex;
+        height: 100%;
         flex: 0 0 75%;
+        overflow: hidden;
     }
 }
 
