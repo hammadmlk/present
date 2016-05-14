@@ -3,9 +3,8 @@
 
 # Run Local Server
  node run start
-
+ 
+Visit localhost:8080 
 
 # Next Step
- - Pass data end to end. I.e root to all child nodes (bullet links, subTitle etc). Ensure propType checks and defaultValue sets are used where required.
- - Colors, fonts and visuals
- - Edit functionality (on slide edit vs individual person edit)
+ - Edit functionality (choose between on slide edit and individual person edit)

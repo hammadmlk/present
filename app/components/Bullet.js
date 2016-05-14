@@ -17,8 +17,13 @@ function Bullet(props) {
 
     return (
         <div className="bullet">
-          { props.text } <span className='bullet-developer'>{ props.developer }</span>
-          { linkList }
+          <div className='developer-name'>
+            { props.developer }
+          </div>
+          <div className="bullet-text">
+            { props.text }
+          </div>
+          <span className="link-list">{ linkList }</span>
         </div>
     )
 }
