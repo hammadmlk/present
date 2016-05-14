@@ -1,23 +1,25 @@
+
 var React = require('react');
 var PropTypes = React.PropTypes;
 
-var slideTitleStyle = {
-	display: 'flex',
-	flexGrow: 1,
-	flexBasis: '0px',
-	justifyContent: 'center',
-	alignItems: 'center',
-	backgroundColor: 'rgba(222, 0, 0, 0.1)'
-};
+require('../scss/SlideTitle.scss');
 
-function SlideTitle (props) {
-  return (
-	<div className="slideTitle" style={slideTitleStyle}>{props.title}</div>
-	)
+function SlideTitle(props) {
+    return (
+        <div className="slide-title">
+          <div className="title">
+            { props.title }
+          </div>
+          <div className="sub-title">
+            { props.subTitle }
+          </div>
+        </div>
+    )
 }
 
 SlideTitle.propTypes = {
-	title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    subTitle: PropTypes.string,
 }
 
 module.exports = SlideTitle;
