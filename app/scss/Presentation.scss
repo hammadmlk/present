@@ -1,0 +1,23 @@
+// Presentation
+.presentation {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+
+    //fonts
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+}
+
+// slide list
+.slide-list {
+    height: 100%;
+    display: flex;
+    flex: 0 0 100%;
+
+    // transitions
+    transition: all 0.5s ease 0s;
+}

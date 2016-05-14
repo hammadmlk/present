@@ -5,12 +5,12 @@ var slideNavStyle = {
 	display: 'flex',
 	flexGrow: 1,
 	flexBasis: '0px',
-	backgroundColor: 'rgba(222, 0, 0, 0.1)',
+
 
 	position: 'absolute',
 	left: '0px',
 	bottom: '0px',
-	height: '15%',
+	height: '10%',
 	width: '25%',
 	overflow: 'hidden'
 
@@ -18,11 +18,17 @@ var slideNavStyle = {
 
 var navButtonStyle = {
 	display: 'flex',
-	flexGrow:1,
+	flex: '1 1 0px',
 	justifyContent: 'center',
 	alignItems: 'center',
-	flexBasis: '0px',
-	backgroundColor: 'rgba(222, 0, 0, 0.1)'
+
+	color: 'black',
+	fontSize: '2em',
+
+	margin: '0 1% 0 1%',
+
+	cursor: 'pointer',
+
 };
 
 function PresentationNav (props) {
