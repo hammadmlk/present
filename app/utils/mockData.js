@@ -2,20 +2,20 @@
 /* ## Data model ##
 
 Presentation
-	id
-	title
- 	slide[]
- 		id
- 		title
-		subTitle
-		bullet[]
+    id
+    title
+    slide[]
+        id
+        title
+        subTitle
+        bullet[]
             developer 
-			text
-			link[]
-				text
-				url
+            text
+            link[]
+                text
+                url
 
-	Controller
+    Controller
 */
 
 var mockPresentationData = {
