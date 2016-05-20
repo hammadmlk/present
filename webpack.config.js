@@ -1,22 +1,19 @@
+/**
+ ** This config is not sutable for production. 
+ **/
+
+var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-    template: __dirname + '/app/index.html',
-    filename: 'index.html',
-    inject: 'body'
-});
-var ExtractTextPluginConfig = new ExtractTextPlugin('style.css', {
-    allChunks: true
-})
-
 module.exports = {
     entry: [
+        'webpack-hot-middleware/client?reload=true',
         './app/index.js'
     ],
     output: {
         path: __dirname + '/dist',
-        filename: "index_bundle.js"
+        filename: "[name].js"
     },
     module: {
         loaders: [
@@ -25,13 +22,26 @@ module.exports = {
                 include: __dirname + '/app',
                 loader: "babel-loader"
             },
-            //{ test: /\.css$/, loader: "style-loader!css-loader" },
-            //{ test: /\.scss$/, loaders: ['style', 'css', 'sass'] }
             {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract('css!sass')
             }
         ]
     },
-    plugins: [HTMLWebpackPluginConfig, ExtractTextPluginConfig]
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: __dirname + '/app/index.html',
+            filename: 'index.html',
+            inject: 'body'
+        }),
+        new ExtractTextPlugin('style.css', {
+            allChunks: true
+        }),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        })
+    ]
 };
