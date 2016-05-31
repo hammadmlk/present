@@ -3,3 +3,5 @@ node_modules/
 dist/
 
 app/utils/dataMay13.js
+
+dynamodbTut/

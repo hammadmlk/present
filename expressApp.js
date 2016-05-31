@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var sampleRoute = require('./routes/sample');
+var apiV0 = require('./routes/apiV0');
 var reactAppRoute = require('./routes/reactApp');
 
 var app = express();
@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.use('/sample', sampleRoute);
+app.use('/api/v0', apiV0);
 
 if (app.get('env') === 'development') {
     //development
