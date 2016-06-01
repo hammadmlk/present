@@ -42,7 +42,11 @@ const createParams = {
 function recreate(callback) {
     dynamodb.deleteTable(deleteParams, function(err, data) {
         dynamodb.createTable(createParams, function(err, data) {
-            callback(err, callback)
+            if (err) {
+                console.error(err);
+            } else {
+                console.log(JSON.stringify(data, null, 2));
+            }
         });
     });
 }
