@@ -7,7 +7,7 @@ var getPresentation = function(docClient, tableName, UID, callback) {
         }
     };
     docClient.get(params, function(err, data) {
-        callback(err, data);
+        callback(err, data.Item);
     });
 }
 

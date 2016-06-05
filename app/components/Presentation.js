@@ -15,9 +15,9 @@ function getSlideListStyle(visibleSlideNumber) {
 function Presentation(props) {
 
     var slideList = props.slideList.map(function(slide) {
-
         return <Slide
                       key={ slide.id }
+                      presentationID={ props.id }
                       id={ slide.id }
                       title={ slide.title }
                       subTitle={ slide.subTitle }
@@ -32,8 +32,8 @@ function Presentation(props) {
             { slideList }
           </div>
           <PresentationNav
-                           onNextSlide={ props.handleNextSlide }
-                           onPrevSlide={ props.handlePrevSlide } />
+                           onNextSlide={ props.onNextSlide }
+                           onPrevSlide={ props.onPrevSlide } />
         </div>
     )
 }
@@ -41,10 +41,10 @@ function Presentation(props) {
 Presentation.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    slideList: PropTypes.array.isRequired, // validate object in array is of type slide
+    slideList: PropTypes.arrayOf(PropTypes.object).isRequired,
     visibleSlideId: PropTypes.number.isRequired,
-    handleNextSlide: PropTypes.func.isRequired,
-    handlePrevSlide: PropTypes.func.isRequired
+    onNextSlide: PropTypes.func.isRequired,
+    onPrevSlide: PropTypes.func.isRequired
 }
 
 module.exports = Presentation;

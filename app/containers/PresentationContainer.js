@@ -1,40 +1,51 @@
-var React = require('react');
-var Presentation = require('../components/Presentation');
-var mockPresentationData = require('../utils/mockData').mockPresentationData;
+const React = require('react');
+const PropTypes = React.PropTypes;
+const Presentation = require('../components/Presentation');
+const serverCommunicator = require('../utils/ServerCommunicator').getInstance();
 
-var PresentationContainer = React.createClass({
-    getInitialState: function() {
-        return {
-            visibleSlideId: 1
-        }
-    },
-    getDefaultProps: function() {
-        return mockPresentationData
-    },
+const PresentationContainer = React.createClass({
     handleNextSlide: function() {
-        var currentVisibleSlideId = this.state.visibleSlideId;
+        // TODO: Limit to maxSlide in this.props.slideList
+        const currentVisibleSlideId = this.state.visibleSlideId;
         this.setState({
             visibleSlideId: currentVisibleSlideId + 1
         })
-    // TODO: Limit to maxSlide in this.props.slideList
     },
     handlePrevSlide: function() {
-        var currentVisibleSlideId = this.state.visibleSlideId;
+        // TODO: Limit to minSlide 1
+        const currentVisibleSlideId = this.state.visibleSlideId;
         this.setState({
             visibleSlideId: currentVisibleSlideId - 1
         })
-    // TODO: Limit to minSlide 1
+    },
+    handleNewData: function(presentation) {
+        this.setState({
+            id: presentation.id,
+            title: presentation.title,
+            slideList: presentation.slideList
+        })
+    },
+    getInitialState: function() {
+        return {
+            id: 1,
+            title: '',
+            slideList: [],
+            visibleSlideId: 1,
+        }
     },
     render: function() {
         return (
             <Presentation
-                          id={ this.props.id }
-                          title={ this.props.title }
-                          slideList={ this.props.slideList }
+                          id={ this.state.id }
+                          title={ this.state.title }
+                          slideList={ this.state.slideList }
                           visibleSlideId={ this.state.visibleSlideId }
-                          handleNextSlide={ this.handleNextSlide }
-                          handlePrevSlide={ this.handlePrevSlide } />
+                          onNextSlide={ this.handleNextSlide }
+                          onPrevSlide={ this.handlePrevSlide } />
         )
+    },
+    componentDidMount: function() {
+        serverCommunicator.onPresentationHasNewData(this.handleNewData)
     }
 });
 

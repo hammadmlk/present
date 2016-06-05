@@ -7,12 +7,16 @@ require('../scss/SlideTitle.scss');
 function SlideTitle(props) {
     return (
         <div className="slide-title">
-          <div className="title">
-            { props.title }
-          </div>
-          <div className="sub-title">
-            { props.subTitle }
-          </div>
+          <textarea
+                    className="title"
+                    type="text"
+                    value={ props.title }
+                    onChange={ props.onTitleChange } />
+          <textarea
+                    className="sub-title"
+                    type="text"
+                    value={ props.subTitle }
+                    onChange={ props.onSubTitleChange } />
         </div>
     )
 }
@@ -20,6 +24,8 @@ function SlideTitle(props) {
 SlideTitle.propTypes = {
     title: PropTypes.string.isRequired,
     subTitle: PropTypes.string,
+    onTitleChange: PropTypes.func.isRequired,
+    onSubTitleChange: PropTypes.func.isRequired
 }
 
 module.exports = SlideTitle;

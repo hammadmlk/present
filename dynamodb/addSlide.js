@@ -1,8 +1,13 @@
 const Promise = require('promise');
 const util = require('util');
 
-const DEFAULT_SLIDE = {
-    bullets: {}
+const createEmptySlide = function(id) {
+    return {
+        id: id,
+        title: "",
+        subTitle: "",
+        bullets: {}
+    }
 }
 
 // Adds slide to presentation and returns the slide added
@@ -17,7 +22,7 @@ function addSlide(docClient, tableName, presentationID, callback) {
             },
             UpdateExpression: util.format("set slides.%s = :newSlide", newSlideID),
             ExpressionAttributeValues: {
-                ":newSlide": DEFAULT_SLIDE
+                ":newSlide": createEmptySlide(newSlideID)
             },
             ReturnValues: "UPDATED_NEW"
         };

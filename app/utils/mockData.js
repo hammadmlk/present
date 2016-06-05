@@ -22,7 +22,7 @@ var mockPresentationData = {
     id: 1,
     title: "Presentation A",
     slideList: [{
-        id: 1,
+        id: "s1",
         title: "Slide A Title",
         subTitle: "Slide A subTitle",
         bulletList: [{
@@ -36,7 +36,7 @@ var mockPresentationData = {
             }]
         }]
     }, {
-        id: 2,
+        id: "s2",
         title: "Slide B Title",
         subTitle: "Slide B subTitle",
         bulletList: [{

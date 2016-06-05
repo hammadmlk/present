@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var apiV0 = require('./routes/apiV0');
+var socketApiV0 = require('./routes/socketApiV0');
 var reactAppRoute = require('./routes/reactApp');
 
 var app = express();
@@ -59,5 +60,9 @@ app.use(function(err, req, res, next) {
     res.send("Error: " + err.message);
 });
 
+// socketIO event handler
+app.socketIOHandle = function(io) {
+socketApiV0(io)
+}
 
 module.exports = app;
