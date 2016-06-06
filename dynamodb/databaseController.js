@@ -12,55 +12,55 @@ AWS.config.update({
     endpoint: "http://localhost:8000"
 });
 
-function PresentationDBController(docClient) {
+var docClient = new AWS.DynamoDB.DocumentClient()
+var tableName = "Presentations";
+
+function PresentationDBController() {
     'use strict';
-    this._docClient = docClient
-    this._tableName = "Presentations";
 
     // Create a presentation
-    this.addPresentation = function(name, callback) {
-        addPresentation(this._docClient, this._tableName, name, callback);
+    this.addPresentation = function(name) {
+        return addPresentation(docClient, tableName, name);
     }
 
     // Create a slide in a presentation
-    this.addSlide = function(PresentationID, callback) {
-        addSlide(this._docClient, this._tableName, PresentationID, callback);
+    this.addSlide = function(presentationID) {
+        return addSlide(docClient, tableName, presentationID);
     }
 
     // GET all presentations
-    this.getPresentations = function(callback) {
-        getPresentations(this._docClient, this._tableName, callback);
+    this.getPresentations = function() {
+        return getPresentations(docClient, tableName);
     }
 
     // GET presentation by ID
-    this.getPresentation = function(presentationID, callback) {
-        getPresentation(this._docClient, this._tableName, presentationID, callback);
+    this.getPresentation = function(presentationID) {
+        return getPresentation(docClient, tableName, presentationID);
     }
 
     // PUT an attribute in presentation
-    this.putPresentation = function(presentationID, attributeName, attributeValue, callback) {
-        putAttribute.putPresentation(
-            this._docClient,
-            this._tableName,
+    this.putPresentation = function(presentationID, attributeName, attributeValue) {
+        return putAttribute.putPresentation(
+            docClient,
+            tableName,
             presentationID,
             attributeName,
-            attributeValue,
-            callback
+            attributeValue
         );
     }
 
     // PUT an attribute in slide of presentation
-    this.putSlide = function(presentationID, slideID, attributeName, attributeValue, callback) {
-        putAttribute.putSlide(
-            this._docClient,
-            this._tableName,
+    this.putSlide = function(presentationID, slideID, attributeName, attributeValue) {
+        return putAttribute.putSlide(
+            docClient,
+            tableName,
             presentationID,
             slideID,
             attributeName,
-            attributeValue,
-            callback
-        );
+            attributeValue
+        )
     }
 }
 
-module.exports = new PresentationDBController(new AWS.DynamoDB.DocumentClient());
+module.exports = new PresentationDBController();
+

@@ -1,28 +1,29 @@
+const Promise = require('promise');
 var util = require('util');
 
 // TODO: Validate attrPath to block updating of unwanted paths
 // TODO: Validate attrValue to block updating to invalid values
 
-const putPresentation = function(docClient, tableName, presentationID, attrName, attrValue, callback) {
+const putPresentation = function(docClient, tableName, presentationID, attrName, attrValue) {
     const attrPath = attrName;
-    putAttributeByPath(docClient, tableName, presentationID, attrPath, attrValue, callback)
+    return putAttributeByPath(docClient, tableName, presentationID, attrPath, attrValue)
 }
 
-const putSlide = function(docClient, tableName, presentationID, slideID, attrName, attrValue, callback) {
+const putSlide = function(docClient, tableName, presentationID, slideID, attrName, attrValue) {
     const attrPath = util.format("slides.%s.%s", slideID, attrName);
-    putAttributeByPath(docClient, tableName, presentationID, attrPath, attrValue, callback)
+    return putAttributeByPath(docClient, tableName, presentationID, attrPath, attrValue)
 }
 
-const putBullet = function(docClient, tableName, presentationID, slideID, bulletID, attrName, attrValue, callback) {
+const putBullet = function(docClient, tableName, presentationID, slideID, bulletID, attrName, attrValue) {
     const attrPath = util.format("slides.%s.bullets.%s.%s", slideID, bulletID, attrName);
-    putAttributeByPath(docClient, tableName, presentationID, attrPath, attrValue, callback)
+    return putAttributeByPath(docClient, tableName, presentationID, attrPath, attrValue)
 }
 
 const putLink = function() {
     // TODO  
 }
 
-const putAttributeByPath = function(docClient, tableName, presentationID, attrPath, attrValue, callback) {
+const putAttributeByPath = function(docClient, tableName, presentationID, attrPath, attrValue) {
 
     var params = {
         TableName: tableName,
@@ -36,10 +37,13 @@ const putAttributeByPath = function(docClient, tableName, presentationID, attrPa
         ReturnValues: "UPDATED_NEW"
     };
 
-    console.log(params)
+    console.log("updating params", params)
 
-    docClient.update(params, function(err, data) {
-        callback(err, data);
+    return new Promise(function(resolve, reject) {
+        docClient.update(params, function(err, data) {
+            if (err) reject(err);
+            else resolve(data);
+        });
     });
 }
 

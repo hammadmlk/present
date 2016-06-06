@@ -4,8 +4,8 @@ const util = require('util');
 const createEmptySlide = function(id) {
     return {
         id: id,
-        title: "",
-        subTitle: "",
+        title: "Title here",
+        subTitle: " ",
         bullets: {}
     }
 }
@@ -13,7 +13,7 @@ const createEmptySlide = function(id) {
 // Adds slide to presentation and returns the slide added
 function addSlide(docClient, tableName, presentationID, callback) {
 
-    createUniqueSlideId(docClient, tableName, presentationID).then(function(newSlideID) {
+    return createUniqueSlideId(docClient, tableName, presentationID).then(function(newSlideID) {
 
         const params = {
             TableName: tableName,
@@ -27,13 +27,12 @@ function addSlide(docClient, tableName, presentationID, callback) {
             ReturnValues: "UPDATED_NEW"
         };
 
-        docClient.update(params, function(err, data) {
-            if (err) {
-                callback(err, data);
-            } else {
-                callback(err, data.Attributes.slides[newSlideID])
-            }
-        });
+        return new Promise(function(resolve, reject) {
+            docClient.update(params, function(err, data) {
+                if (err) reject(err);
+                else resolve(data.Attributes.slides[newSlideID]);
+            });
+        })
     });
 }
 
@@ -53,7 +52,7 @@ const createUniqueSlideId = function(docClient, tableName, presentationID) {
         ReturnValues: 'UPDATED_NEW',
     }
 
-    const promise = new Promise(function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
         docClient.update(params, function(err, data) {
             if (err) {
                 reject(err);
@@ -63,8 +62,6 @@ const createUniqueSlideId = function(docClient, tableName, presentationID) {
             }
         });
     });
-
-    return promise;
 
 }
 

@@ -6,6 +6,7 @@ const databaseController = require('../dynamodb/databaseController')
 // TODO: need a class for standardized error message creation
 // TODO: when somethng goes wrong we need to emit errors.
 
+
 const socketApiV0 = function(io) {
     io.on('connection', function(socket) {
 
@@ -14,24 +15,29 @@ const socketApiV0 = function(io) {
 
         socket.on('update slide title', function(data) {
             const presentationID = data.presentationID;
-            databaseController.putSlide(data.presentationID, data.slideID, "title", data.newValue, function(err, data) {
-                if (err) {
-                    // emit error
-                } else {
+            databaseController.putSlide(data.presentationID, data.slideID, "title", data.newValue)
+                .then(function(res) {
+                    console.log("RES", res)
                     emitPresentationData(io, presentationID)
-                }
-            })
+                })
+                .catch(function(err) {
+                    // emit error
+                    console.log("ERR", err)
+
+                })
         });
 
         socket.on('update slide subTitle', function(data) {
             const presentationID = data.presentationID;
-            databaseController.putSlide(data.presentationID, data.slideID, "subTitle", data.newValue, function(err, data) {
-                if (err) {
-                    // emit error
-                } else {
+            databaseController.putSlide(data.presentationID, data.slideID, "subTitle", data.newValue)
+                .then(function(res) {
+                    console.log("RES", res)
                     emitPresentationData(io, presentationID)
-                }
-            })
+                })
+                .catch(function(err) {
+                    // emit error
+                    console.log("ERR", err)
+                })
         });
 
     });
@@ -39,18 +45,20 @@ const socketApiV0 = function(io) {
 
 module.exports = socketApiV0;
 
-
 // HELPERS
 
 var emitPresentationData = function(io, presentationID) {
-    var presentationData = databaseController.getPresentation(presentationID, function(err, dbPresentation) {
-        if (err) {
-            // emit error
-        } else {
+
+    var presentationData = databaseController.getPresentation(presentationID)
+        .then(function(dbPresentation) {
             var clientPresentation = convertPresentationDBModelToReactClientModel(dbPresentation);
             io.sockets.emit("presentation has new data", clientPresentation);
-        }
-    })
+        })
+        .catch(function(err) {
+            // emit error
+            console.log("ERR", err)
+
+        })
 }
 
 var convertPresentationDBModelToReactClientModel = function(dbModel) {
@@ -86,3 +94,4 @@ var convertPresentationDBModelToReactClientModel = function(dbModel) {
 
     return clientModel;
 }
+

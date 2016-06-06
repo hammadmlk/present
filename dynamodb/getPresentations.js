@@ -1,10 +1,15 @@
+const Promise = require('promise');
 
-var getPresentations = function(docClient, tableName, callback) {
+var getPresentations = function(docClient, tableName) {
     var params = {
         TableName: tableName,
     };
-    docClient.scan(params, function(err, data) {
-        callback(err, data)
+
+    return new Promise(function(resolve, reject) {
+        docClient.scan(params, function(err, data) {
+            if (err) reject(err);
+            else resolve(data);
+        });
     });
 }
 

@@ -3,7 +3,7 @@ const Promise = require('promise');
 // Adds presentation to db and returns the presenttion added
 function addPresentation(docClient, tableName, presentationName, callback) {
 
-    createUniquePresentationId(docClient, tableName).then(function(newUID) {
+    return createUniquePresentationId(docClient, tableName).then(function(newUID) {
 
         var params = {
             TableName: tableName,
@@ -17,14 +17,13 @@ function addPresentation(docClient, tableName, presentationName, callback) {
                 "UID": newUID
             }
         };
+        return new Promise(function(resolve, reject) {
+            docClient.put(params, function(err, data) {
+                if (err) reject(err);
+                else resolve(params.Item);
+            });
+        })
 
-        docClient.put(params, function(err, data) {
-            if (err) {
-                callback(err, data);
-            } else {
-                callback(err, params.Item)
-            }
-        });
     });
 }
 
@@ -42,15 +41,12 @@ var createUniquePresentationId = function(docClient, tableName) {
         ReturnValues: 'UPDATED_NEW'
     }
 
-    var promise = new Promise(function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
         docClient.update(params, function(err, data) {
             if (err) reject(err);
             else resolve(data.Attributes.presentationUIDIncrementer);
         });
     });
-
-    return promise;
-
 }
 
 
