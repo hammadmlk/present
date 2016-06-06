@@ -1,10 +1,16 @@
 # Install required node modules
- npm install
+> npm install
 
 # Run Local Server
- node run start
- 
-Visit localhost:8080 
+Run the following command
+>npm run start
+
+then visit localhost:3000
 
 # Next Step
- - Edit functionality (choose between on slide edit and individual person edit)
+- ☑ setup dynamodb
+- ☑ setup socket.io
+- ☑ sync title and subtitle across devices
+- sync bullets  (socket api, react wiring)
+- add bullet link url editing functionality (react)
+- Support multiple presentations on frontend (react router??)
