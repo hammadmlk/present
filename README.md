@@ -1,3 +1,6 @@
+# Setup local dynamodb
+> instructions todo
+
 # Install required node modules
 > npm install
 
@@ -13,4 +16,11 @@ then visit localhost:3000
 - ☑ sync title and subtitle across devices
 - ☑ sync bullets  (socket api, react wiring)
 - ☑ add bullet link url editing functionality (react)
-- Support multiple presentations on frontend (react router??)
+- editable tag (socket api)
+- improve the UI for addLink and addBullet button (react)
+- make dynamodb host and port configurable via config file
+- reconsider the default values assigned when creating bullets, slides, links etc (node dynamodb code)
+- Ability to choose presentation via URL (react router ?)
+- Ability to add slides via UI (react)
+- Adding a presentation chooser component (react)
+- 
