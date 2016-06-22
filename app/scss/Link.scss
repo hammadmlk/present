@@ -1,4 +1,9 @@
 .link {
-    text-decoration: none;
-    color: blue;
+    display: inline;
+    padding-right: 1em;
+
+    a,
+    .link-text {
+        color: inherit;
+    }
 }

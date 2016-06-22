@@ -9,7 +9,7 @@ Presentation
         title
         subTitle
         bullet[]
-            developer 
+            tag 
             text
             link[]
                 text
@@ -28,7 +28,7 @@ var mockPresentationData = {
         bulletList: [{
             id: 1,
             text: "Slide A bullet A",
-            developer: 'HammadAA',
+            tag: 'HammadAA',
             linkList: [{
                 id: 1,
                 text: "Sldie A Bullet A Link A",
@@ -42,7 +42,7 @@ var mockPresentationData = {
         bulletList: [{
             id: 1,
             text: "Slide B bullet A",
-            developer: 'HammadBA',
+            tag: 'HammadBA',
             linkList: [{
                 id: 1,
                 text: "Slide B Bullet A Link A",
@@ -55,7 +55,7 @@ var mockPresentationData = {
         }, {
             id: 2,
             text: "Slide B bullet B",
-            developer: 'HammadBB',
+            tag: 'HammadBB',
             linkList: [{
                 id: 1,
                 text: "Slide B Bullet B Link A",

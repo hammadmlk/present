@@ -2,10 +2,13 @@
 
 .slide-body {
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     overflow: scroll;
 
-    .bullet-list {}
+    .bullet-list {
+        max-height: 100%;
+    }
+
+    .add-bullet-button {
+        display: block;
+    }
 }

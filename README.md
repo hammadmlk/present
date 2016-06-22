@@ -11,6 +11,6 @@ then visit localhost:3000
 - ☑ setup dynamodb
 - ☑ setup socket.io
 - ☑ sync title and subtitle across devices
-- sync bullets  (socket api, react wiring)
-- add bullet link url editing functionality (react)
+- ☑ sync bullets  (socket api, react wiring)
+- ☑ add bullet link url editing functionality (react)
 - Support multiple presentations on frontend (react router??)

@@ -1,0 +1,26 @@
+@import "variables.scss";
+
+// Slide Heading
+.slide-heading {
+    height: 80%;
+    padding: 10%;
+    border-radius: 0 0 300px 0;
+    overflow: hidden;
+    background-color: $slide-heading-background-color-default;
+
+    .title {
+        width: 100%;
+        color: $slide-title-text-color;
+        font-size: 3rem;
+        font-weight: 900;
+        overflow-wrap: break-word;
+    }
+
+    .sub-title {
+        width: 100%;
+        color: $slide-title-text-color;
+        font-size: 2rem;
+        font-weight: 100;
+        overflow-wrap: break-word;
+    }
+}

@@ -1,10 +1,10 @@
 var React = require('react');
-var SlideTitle = require('../components/SlideTitle');
 var PropTypes = React.PropTypes;
-
+var TextareaAutosize = require('react-textarea-autosize').default;
 const serverCommunicator = require('../utils/ServerCommunicator').getInstance();
+require('../scss/SlideHeading.scss');
 
-var SlideTitleContainer = React.createClass({
+var SlideHeadingContainer = React.createClass({
     handleTitleChange: function(e) {
         this.setState({
             title: e.target.value
@@ -33,11 +33,22 @@ var SlideTitleContainer = React.createClass({
     },
     render: function() {
         return (
-            <SlideTitle
-                        title={ this.state.title }
-                        subTitle={ this.state.subTitle }
-                        onTitleChange={ this.handleTitleChange }
-                        onSubTitleChange={ this.handleSubTitleChange } />
+            <div className="slide-heading valign-wrapper">
+                <div className="valign">
+                    <TextareaAutosize
+                                      className="title"
+                                      value={ this.state.title }
+                                      placeholder={ "title here" }
+                                      onChange={ this.handleTitleChange }
+                                      maxRows={ 4 } />
+                    <TextareaAutosize
+                                      className="sub-title"
+                                      value={ this.state.subTitle }
+                                      placeholder={ "sub-title here" }
+                                      onChange={ this.handleSubTitleChange }
+                                      maxRows={ 3 } />
+                </div>
+            </div>
         )
     },
     componentWillReceiveProps: function(props) {
@@ -48,12 +59,16 @@ var SlideTitleContainer = React.createClass({
     }
 })
 
-SlideTitleContainer.propTypes = {
+SlideHeadingContainer.propTypes = {
     title: PropTypes.string.isRequired,
     subTitle: PropTypes.string,
     presentationID: PropTypes.number.isRequired,
-    slideID: PropTypes.string.isRequired
+    slideID: PropTypes.string.isRequired,
+}
+SlideHeadingContainer.defaultProps = {
+    title: "",
+    subTitle: "",
 }
 
-module.exports = SlideTitleContainer;
+module.exports = SlideHeadingContainer;
 

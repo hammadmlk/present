@@ -1,0 +1,47 @@
+.app-root {
+    display: block;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Global
+   ====================== */
+
+// Fonts
+html {
+    font-family: Lato, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.5vw;
+
+    *, *:before, *:after {
+        font-family: inherit;
+        font-style: inherit;
+        font-weight: inherit;
+        font-size: inherit;
+    }
+}
+
+// Box-Sizing
+html {
+    box-sizing: border-box;
+
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+}
+
+// Input Fields
+textarea, input {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    resize: none;
+
+    &:focus {
+        outline: none;
+    }
+}

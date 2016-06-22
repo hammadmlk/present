@@ -2,34 +2,22 @@
 .bullet {
     padding-bottom: 1em;
 
-    .developer-name {
-        opacity: 0.1;
-        transition: all 1s ease;
+    .tag {
+        display: block;
+        font-size: 1rem;
     }
 
-    .bullet-text {
-        display: inline-block;
-        font-size: 1.5em;
-        padding-right: 1em;
+    .text {
+        display: block;
+        font-size: 1.5rem;
+        padding-right: 1rem;
     }
 
     .link-list {
-        opacity: 0.2;
-        display: inline-block;
-        transition: all 1s ease;
+        display: block;
     }
 
-    .full-opacity {
-        opacity: 1;
-    }
-
-    &:hover {
-        .developer-name {
-            opacity: 1;
-        }
-
-        .link-list {
-            opacity: 1;
-        }
+    .add-link-button {
+        font-size: 1rem;
     }
 }

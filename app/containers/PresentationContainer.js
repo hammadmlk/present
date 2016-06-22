@@ -1,7 +1,14 @@
+/*
+ * Contains an individual presentation
+ */
+
 const React = require('react');
 const PropTypes = React.PropTypes;
-const Presentation = require('../components/Presentation');
+const PresentationNav = require('../components/PresentationNav');
+const Slide = require('../components/Slide');
 const serverCommunicator = require('../utils/ServerCommunicator').getInstance();
+require('../scss/Presentation.scss');
+
 
 const PresentationContainer = React.createClass({
     handleNextSlide: function() {
@@ -35,18 +42,40 @@ const PresentationContainer = React.createClass({
     },
     render: function() {
         return (
-            <Presentation
-                          id={ this.state.id }
-                          title={ this.state.title }
-                          slideList={ this.state.slideList }
-                          visibleSlideId={ this.state.visibleSlideId }
-                          onNextSlide={ this.handleNextSlide }
-                          onPrevSlide={ this.handlePrevSlide } />
+            <div className="presentation">
+                <div className="slide-list" style={ this.getSlideListMargin() }>
+                    { this.getSlideList() }
+                </div>
+                <PresentationNav onNextSlide={ this.handleNextSlide } onPrevSlide={ this.handlePrevSlide } />
+            </div>
         )
     },
     componentDidMount: function() {
         serverCommunicator.onPresentationHasNewData(this.handleNewData)
-    }
+    },
+    //
+    // Helpers
+    //
+    getSlideList: function() {
+        return this.state.slideList.map(function(slide) {
+            return <Slide
+                          key={ slide.id }
+                          presentationID={ this.state.id }
+                          id={ slide.id }
+                          title={ slide.title }
+                          subTitle={ slide.subTitle }
+                          bulletList={ slide.bulletList } />;
+        }.bind(this));
+    },
+    getSlideListMargin: function() {
+        var marginLeft = (-100 * this.state.visibleSlideId + 100) + '%';
+        return {
+            marginLeft: marginLeft
+        }
+    },
 });
 
+PresentationContainer.propTypes = {}
+
 module.exports = PresentationContainer;
+

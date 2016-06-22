@@ -1,0 +1,61 @@
+@import "variables.scss";
+
+// Button
+.button {
+    display: inline-block;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    padding: 0 2rem;
+
+    // Variant
+    &.button-variant- {
+        &default {}
+
+        &round {
+            border-radius: 50%;
+            width: $button-round-size;
+            height: $button-round-size;
+            line-height: $button-round-size;
+            padding: 0;
+        }
+    }
+
+    // Color
+    &.button-color- {
+        &default {
+            &:hover {
+                background-color: grey;
+            }
+        }
+
+        &green {
+            &:hover {
+                color: white;
+                background-color: rgba(0, 255, 0, 0.7);
+            }
+        }
+
+        &red {
+            &:hover {
+                color: red;
+            }
+        }
+    }
+
+    // size
+    &.button-size- {
+        &large {
+            font-size: $button-font-large-size;
+        }
+
+        &default {
+            font-size: $button-font-size;
+        }
+
+        &small {
+            font-size: $button-font-small-size;
+        }
+    }
+}

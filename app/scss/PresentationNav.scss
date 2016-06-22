@@ -1,0 +1,13 @@
+.slide-nav {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    height: 10%;
+    width: 25%;
+    overflow: hidden;
+
+    .slide-nav-button {
+        font-size: 2rem;
+        cursor: pointer;
+    }
+}
