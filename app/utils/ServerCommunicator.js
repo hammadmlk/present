@@ -41,6 +41,77 @@ const ServerCommunicator = function(socket) {
         });
     };
 
+    this.updateBulletText = function(presentationID, slideID, bulletID, newValue) {
+        this._socket.emit('update bullet text', {
+            presentationID: presentationID,
+            slideID: slideID,
+            bulletID: bulletID,
+            newValue: newValue
+        });
+    };
+
+    this.updateBulletTag = function(presentationID, slideID, bulletID, newValue) {
+        console.log("update bullet tag")
+        this._socket.emit('update bullet tag', {
+            presentationID: presentationID,
+            slideID: slideID,
+            bulletID: bulletID,
+            newValue: newValue
+        });
+    };
+
+    this.updateLinkText = function(presentationID, slideID, bulletID, linkID, newValue) {
+        this._socket.emit('update link text', {
+            presentationID: presentationID,
+            slideID: slideID,
+            bulletID: bulletID,
+            linkID: linkID,
+            newValue: newValue
+        });
+    };
+
+    this.updateLinkURL = function(presentationID, slideID, bulletID, linkID, newValue) {
+        this._socket.emit('update link url', {
+            presentationID: presentationID,
+            slideID: slideID,
+            bulletID: bulletID,
+            linkID: linkID,
+            newValue: newValue
+        });
+    };
+
+    this.addBullet = function(presentationID, slideID) {
+        this._socket.emit('add bullet', {
+            presentationID: presentationID,
+            slideID: slideID
+        });
+    };
+
+    this.addLink = function(presentationID, slideID, bulletID) {
+        this._socket.emit('add link', {
+            presentationID: presentationID,
+            slideID: slideID,
+            bulletID: bulletID
+        });
+    };
+
+    this.deleteBullet = function(presentationID, slideID, bulletID) {
+        this._socket.emit('delete bullet', {
+            presentationID: presentationID,
+            slideID: slideID,
+            bulletID: bulletID
+        });
+    };
+
+    this.deleteLink = function(presentationID, slideID, bulletID, linkID) {
+        this._socket.emit('delete link', {
+            presentationID: presentationID,
+            slideID: slideID,
+            bulletID: bulletID,
+            linkID: linkID
+        });
+    };
+
     this.onPresentationHasNewData = function(callback) {
         this._socket.on("presentation has new data", callback);
     };

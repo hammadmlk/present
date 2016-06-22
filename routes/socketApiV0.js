@@ -17,12 +17,12 @@ const socketApiV0 = function(io) {
             const presentationID = data.presentationID;
             databaseController.putSlide(data.presentationID, data.slideID, "title", data.newValue)
                 .then(function(res) {
-                    console.log("RES", res)
+                    console.log("update slide title RES", res)
                     emitPresentationData(io, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
-                    console.log("ERR", err)
+                    console.log("update slide title ERR", err)
 
                 })
         });
@@ -31,12 +31,129 @@ const socketApiV0 = function(io) {
             const presentationID = data.presentationID;
             databaseController.putSlide(data.presentationID, data.slideID, "subTitle", data.newValue)
                 .then(function(res) {
-                    console.log("RES", res)
+                    console.log("update slide subTitle RES", res)
                     emitPresentationData(io, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
-                    console.log("ERR", err)
+                    console.log("update slide subTitle ERR", err)
+                })
+        });
+
+        socket.on('update bullet text', function(data) {
+            const presentationID = data.presentationID;
+            const slideID = data.slideID;
+            const bulletID = data.bulletID;
+            const newValue = data.newValue;
+
+            databaseController.putBullet(presentationID, slideID, bulletID, "txt", newValue)
+                .then(function(res) {
+                    console.log("update bullet text RES", res)
+                    emitPresentationData(io, presentationID)
+                })
+                .catch(function(err) {
+                    // emit error
+                    console.log("update bullet text ERR", err)
+                })
+        });
+
+        socket.on('update link text', function(data) {
+            const presentationID = data.presentationID;
+            const slideID = data.slideID;
+            const bulletID = data.bulletID;
+            const linkID = data.linkID;
+            const newValue = data.newValue;
+
+            databaseController.putLink(presentationID, slideID, bulletID, linkID, "txt", newValue)
+                .then(function(res) {
+                    console.log("update link text RES", res)
+                    emitPresentationData(io, presentationID)
+                })
+                .catch(function(err) {
+                    // emit error
+                    console.log("update link text ERR", err)
+                })
+        });
+
+        socket.on('update link url', function(data) {
+            const presentationID = data.presentationID;
+            const slideID = data.slideID;
+            const bulletID = data.bulletID;
+            const linkID = data.linkID;
+            const newValue = data.newValue;
+
+            databaseController.putLink(presentationID, slideID, bulletID, linkID, "href", newValue)
+                .then(function(res) {
+                    console.log("update link url RES", res)
+                    emitPresentationData(io, presentationID)
+                })
+                .catch(function(err) {
+                    // emit error
+                    console.log("update link url ERR", err)
+                })
+        });
+
+        socket.on('add bullet', function(data) {
+            const presentationID = data.presentationID;
+            const slideID = data.slideID;
+
+            databaseController.addBullet(presentationID, slideID)
+                .then(function(res) {
+                    console.log("add bullet RES", res)
+                    emitPresentationData(io, presentationID)
+                })
+                .catch(function(err) {
+                    // emit error
+                    console.log("add bullet ERR", err)
+                })
+        });
+
+        socket.on('add link', function(data) {
+            const presentationID = data.presentationID;
+            const slideID = data.slideID;
+            const bulletID = data.bulletID;
+
+            databaseController.addLink(presentationID, slideID, bulletID)
+                .then(function(res) {
+                    console.log("add link RES", res)
+                    emitPresentationData(io, presentationID)
+                })
+                .catch(function(err) {
+                    // emit error
+                    console.log("add link ERR", err)
+                })
+        });
+
+        socket.on('delete bullet', function(data) {
+            const presentationID = data.presentationID;
+            const slideID = data.slideID;
+            const bulletID = data.bulletID;
+
+            databaseController.deleteBullet(presentationID, slideID, bulletID)
+                .then(function(res) {
+                    console.log("delete bullet RES", res)
+                    emitPresentationData(io, presentationID)
+                })
+                .catch(function(err) {
+                    // emit error
+                    console.log("delete bullet ERR", err)
+                })
+        });
+
+        socket.on('delete link', function(data) {
+            const presentationID = data.presentationID;
+            const slideID = data.slideID;
+            const bulletID = data.bulletID;
+            const linkID = data.linkID;
+
+            databaseController.deleteLink(presentationID, slideID, bulletID, linkID)
+                .then(function(res) {
+                    console.log("delete link RES", res)
+                    emitPresentationData(io, presentationID)
+                })
+                .catch(function(err) {
+                    // emit error
+                    console.log("delete link ERR", err)
                 })
         });
 
@@ -77,19 +194,33 @@ var convertPresentationDBModelToReactClientModel = function(dbModel) {
             var bulletDbModel = slideDbModel.bullets[bulletKey];
             var bulletClientModel = {};
             bulletClientModel.id = bulletKey;
-            // TODO: complete the bullet model. And children.
+            bulletClientModel.text = bulletDbModel.txt;
+            bulletClientModel.tag = bulletDbModel.tag;
+
+            bulletClientModel.linkList = Object.keys(bulletDbModel.links).map(function(linkKey) {
+                var linkDbModel = bulletDbModel.links[linkKey];
+                var linkClientModel = {};
+                linkClientModel.id = linkKey;
+                linkClientModel.text = linkDbModel.txt;
+                linkClientModel.url = linkDbModel.href;
+                return linkClientModel;
+            });
+            bulletClientModel.linkList.sort(function(a, b) {
+                return parseInt(a.id.substring(1)) > parseInt(b.id.substring(1));
+            })
+
             return bulletClientModel;
         });
 
         slideClientModel.bulletList.sort(function(a, b) {
-            return a.id > b.id;
+            return parseInt(a.id.substring(1)) > parseInt(b.id.substring(1));
         })
 
         return slideClientModel;
     });
 
     clientModel.slideList.sort(function(a, b) {
-        return a.id > b.id;
+        return parseInt(a.id.substring(1)) > parseInt(b.id.substring(1));
     })
 
     return clientModel;
