@@ -1,5 +1,5 @@
 const Promise = require('promise');
-var util = require('util');
+const util = require('util');
 
 // TODO: Validate attrPath to block updating of unwanted paths
 // TODO: Validate attrValue to block updating to invalid values
@@ -19,23 +19,30 @@ const putBullet = function(docClient, tableName, presentationID, slideID, bullet
     return putAttributeByPath(docClient, tableName, presentationID, attrPath, attrValue)
 }
 
-const putLink = function() {
-    // TODO  
+const putLink = function(docClient, tableName, presentationID, slideID, bulletID, linkID, attrName, attrValue) {
+    const attrPath = util.format("slides.%s.bullets.%s.links.%s.%s", slideID, bulletID, linkID, attrName);
+    return putAttributeByPath(docClient, tableName, presentationID, attrPath, attrValue)
 }
 
 const putAttributeByPath = function(docClient, tableName, presentationID, attrPath, attrValue) {
-
     var params = {
         TableName: tableName,
         Key: {
             "UID": presentationID
         },
-        UpdateExpression: util.format("set %s = :attrValue", attrPath),
-        ExpressionAttributeValues: {
-            ":attrValue": attrValue,
-        },
         ReturnValues: "UPDATED_NEW"
-    };
+    }
+
+    // dynamo doesnt allow setting empty values for attributes. 
+    // So when the attrValue is empty, we call 'remove attrPath' instead of 'set attrPath: attrValue'. 
+    if (attrValue) {
+        params.UpdateExpression = util.format("set %s = :attrValue", attrPath);
+        params.ExpressionAttributeValues = {
+            ":attrValue": attrValue
+        }
+    } else {
+        params.UpdateExpression = util.format("remove %s", attrPath);
+    }
 
     console.log("updating params", params)
 
