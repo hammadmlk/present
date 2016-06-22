@@ -12,7 +12,7 @@ const deleteAttribute = require('./deleteAttribute');
 
 AWS.config.update({
     region: "us-west-2",
-    endpoint: "http://localhost:8000"
+    endpoint: "http://localhost:10001"
 });
 
 var docClient = new AWS.DynamoDB.DocumentClient()
