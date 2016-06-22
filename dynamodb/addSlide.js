@@ -5,13 +5,13 @@ const createEmptySlide = function(id) {
     return {
         id: id,
         title: "Title here",
-        subTitle: " ",
+        subTitle: "Sub title here",
         bullets: {}
     }
 }
 
 // Adds slide to presentation and returns the slide added
-function addSlide(docClient, tableName, presentationID, callback) {
+function addSlide(docClient, tableName, presentationID) {
 
     return createUniqueSlideId(docClient, tableName, presentationID).then(function(newSlideID) {
 
