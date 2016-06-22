@@ -58,6 +58,26 @@ router.post('/presentations/:presentationID(\\d+)/slides', function(req, res, ne
         })
 });
 
+// Create a bullet
+router.post('/presentations/:presentationID(\\d+)/slides/:slideID/bullets', function(req, res, next) {
+    const presentationID = parseInt(req.params.presentationID);
+    const slideID = req.params.slideID;
+    const comment = 'Create a bullet in a slide ' + slideID + ' of presentation ' + presentationID;
+    databaseController.addBullet(presentationID, slideID)
+        .then(function(data) {
+            res.json({
+                data: data,
+                comment: comment
+            });
+        })
+        .catch(function(err) {
+            res.json({
+                error: err,
+                comment: comment
+            })
+        })
+});
+
 //
 // GET
 //
@@ -150,7 +170,32 @@ router.put('/presentations/:presentationID(\\d+)/slides/:slideID', function(req,
                 comment: comment
             });
         })
+});
 
+// PUT the  supplied attributeName and attributeValue in slide of presentation
+router.put('/presentations/:presentationID(\\d+)/slides/:slideID/bullets/:bulletID', function(req, res, next) {
+    const presentationID = parseInt(req.params.presentationID);
+    const slideID = req.params.slideID;
+    const bulletID = req.params.bulletID;
+
+    const attributeName = req.body.attributeName;
+    const attributeValue = req.body.attributeValue;
+
+    const comment = util.format("PUT attr '%s' with value '%s' in bullet %s of slide %s of presentation %s", attributeName, attributeValue, bulletID, slideID, presentationID)
+
+    databaseController.putBullet(presentationID, slideID, bulletID, attributeName, attributeValue)
+        .then(function(data) {
+            res.json({
+                data: data,
+                comment: comment
+            });
+        })
+        .catch(function(err) {
+            res.json({
+                error: err,
+                comment: comment
+            });
+        })
 });
 
 module.exports = router;
