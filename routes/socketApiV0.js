@@ -57,6 +57,23 @@ const socketApiV0 = function(io) {
                 })
         });
 
+        socket.on('update bullet tag', function(data) {
+            const presentationID = data.presentationID;
+            const slideID = data.slideID;
+            const bulletID = data.bulletID;
+            const newValue = data.newValue;
+
+            databaseController.putBullet(presentationID, slideID, bulletID, "tag", newValue)
+                .then(function(res) {
+                    console.log("update bullet tag RES", res)
+                    emitPresentationData(io, presentationID)
+                })
+                .catch(function(err) {
+                    // emit error
+                    console.log("update bullet tag ERR", err)
+                })
+        });
+
         socket.on('update link text', function(data) {
             const presentationID = data.presentationID;
             const slideID = data.slideID;
