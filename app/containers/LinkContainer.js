@@ -73,7 +73,7 @@ var LinkContainer = React.createClass({
                             fontAwesomeClassName="fa-trash"
                             onClick={ this.handleDeleteLink } />)
         }
-        return (<a href={ this.props.url } target="_blank"><i className="fa fa-external-link" /></a>)
+        return (<a href={ this.state.url } target="_blank"><i className="fa fa-external-link" /></a>)
     },
     getInitialState: function() {
         return {
