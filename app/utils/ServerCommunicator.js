@@ -51,7 +51,6 @@ const ServerCommunicator = function(socket) {
     };
 
     this.updateBulletTag = function(presentationID, slideID, bulletID, newValue) {
-        console.log("update bullet tag")
         this._socket.emit('update bullet tag', {
             presentationID: presentationID,
             slideID: slideID,
