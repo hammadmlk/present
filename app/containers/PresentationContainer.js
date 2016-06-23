@@ -12,14 +12,12 @@ require('../scss/Presentation.scss');
 
 const PresentationContainer = React.createClass({
     handleNextSlide: function() {
-        // TODO: Limit to maxSlide in this.props.slideList
         const currentVisibleSlideId = this.state.visibleSlideId;
         this.setState({
             visibleSlideId: currentVisibleSlideId + 1
         })
     },
     handlePrevSlide: function() {
-        // TODO: Limit to minSlide 1
         const currentVisibleSlideId = this.state.visibleSlideId;
         this.setState({
             visibleSlideId: currentVisibleSlideId - 1
@@ -46,7 +44,11 @@ const PresentationContainer = React.createClass({
                 <div className="slide-list" style={ this.getSlideListMargin() }>
                     { this.getSlideList() }
                 </div>
-                <PresentationNav onNextSlide={ this.handleNextSlide } onPrevSlide={ this.handlePrevSlide } />
+                <PresentationNav
+                                 onNextSlide={ this.handleNextSlide }
+                                 onPrevSlide={ this.handlePrevSlide }
+                                 disablePrev={ this.state.visibleSlideId <= 1 }
+                                 disableNext={ this.state.visibleSlideId >= this.state.slideList.length } />
             </div>
         )
     },
