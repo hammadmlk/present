@@ -4,8 +4,8 @@ const util = require('util');
 const createEmptySlide = function(id) {
     return {
         id: id,
-        title: "Title here",
-        subTitle: "Sub title here",
+        //title: "Title here",
+        //subTitle: "Sub title here",
         bullets: {}
     }
 }

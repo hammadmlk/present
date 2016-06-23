@@ -4,8 +4,8 @@ const util = require('util');
 const createEmptyBullet = function(id) {
     return {
         id: id,
-        tag: "tag here",
-        txt: "text here", //text is a reserved word in dynamodb
+        //tag: "your name",
+        //txt: "what cool stuff?", //text is a reserved word in dynamodb
         links: {}
     }
 }

@@ -4,8 +4,8 @@ const util = require('util');
 const createEmptyLink = function(id) {
     return {
         id: id,
-        txt: "link", //text is a reserved word in dynamodb
-        href: "url here"
+    //txt: "link", //text is a reserved word in dynamodb
+    //href: "url here"
     }
 }
 
