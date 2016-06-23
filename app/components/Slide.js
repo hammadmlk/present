@@ -4,10 +4,10 @@ var SlideHeadingContainer = require('../containers/SlideHeadingContainer');
 var SlideBodyContainer = require('../containers/SlideBodyContainer');
 require('../scss/Slide.scss');
 
-// rotates between 1 - 6
+// rotates between 1 - 8
 function getSlideColorNum(slideId) {
     var num = parseInt(slideId.substring(1));
-    var numOfColors = 6;
+    var numOfColors = 8;
     return Math.abs(num % numOfColors) + 1;
 }
 
