@@ -2,60 +2,55 @@
 
 // Button
 .button {
-    display: inline-block;
-    text-transform: uppercase;
     white-space: nowrap;
     overflow: hidden;
     text-align: center;
-    padding: 0 2rem;
-
-    // Variant
-    &.button-variant- {
-        &default {}
-
-        &round {
-            border-radius: 50%;
-            width: $button-round-size;
-            height: $button-round-size;
-            line-height: $button-round-size;
-            padding: 0;
-        }
-    }
+    cursor: pointer;
+    transition: font-size 1s;
 
     // Color
     &.button-color- {
-        &default {
-            &:hover {
-                background-color: grey;
-            }
-        }
-
-        &green {
-            &:hover {
-                color: white;
-                background-color: rgba(0, 255, 0, 0.7);
-            }
-        }
+        &default {}
 
         &red {
             &:hover {
                 color: red;
             }
         }
+
+        &green {
+            &:hover {
+                color: green;
+            }
+        }
     }
 
-    // size
-    &.button-size- {
-        &large {
-            font-size: $button-font-large-size;
-        }
-
+    // Variant
+    &.button-variant- {
         &default {
+            line-height: $button-font-size;
             font-size: $button-font-size;
         }
 
-        &small {
-            font-size: $button-font-small-size;
+        &edit-slide {
+            line-height: $button-edit-slide-hover-font-size;
+            font-size: $button-edit-slide-font-size;
+
+            &:hover {
+                font-size: $button-edit-slide-hover-font-size - 0.1;
+            }
         }
+
+        &edit-bullet {
+            display: block;
+            line-height: $button-edit-bullet-hover-font-size;
+            font-size: $button-edit-bullet-font-size;
+
+            &:hover {
+                font-size: $button-edit-bullet-hover-font-size - 0.1;
+            }
+        }
+
+        &edit-link {}
     }
 }

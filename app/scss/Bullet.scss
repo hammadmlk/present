@@ -1,23 +1,26 @@
+@import "variables.scss";
+
 // Bullet
 .bullet {
-    padding-bottom: 1em;
+    padding: $bullet-padding;
+
+    &:focus, &:hover {
+        border: $bullet-hover-border;
+    }
 
     .tag {
         display: block;
-        font-size: 1rem;
+        font-size: $bullet-tag-font-size;
     }
 
     .text {
         display: block;
-        font-size: 1.5rem;
+        width: 100%;
+        font-size: $bullet-text-font-size;
         padding-right: 1rem;
     }
 
     .link-list {
         display: block;
-    }
-
-    .add-link-button {
-        font-size: 1rem;
     }
 }

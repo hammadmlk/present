@@ -21,8 +21,15 @@ var LinkContainer = React.createClass({
         })
     },
     handleURLChange: function(e) {
+
+        var enteredUrl = e.target.value || "";
+
+        if (!enteredUrl.startsWith("http://")) {
+            enteredUrl = "http://"
+        }
+
         this.setState({
-            url: e.target.value
+            url: enteredUrl
         }, function() {
             serverCommunicator.updateLinkURL(
                 this.props.presentationID,
@@ -60,9 +67,11 @@ var LinkContainer = React.createClass({
     // returns delete button if text is blank, otherwise returns external link anchor
     getDeleteButtonOrAnchor: function() {
         if (!this.props.text) {
-            return (<Button onClick={ this.handleDeleteLink }>
-                        <i className="fa fa-trash" />
-                    </Button>)
+            return (<Button
+                            variant="edit-link"
+                            color="red"
+                            fontAwesomeClassName="fa-trash"
+                            onClick={ this.handleDeleteLink } />)
         }
         return (<a href={ this.props.url } target="_blank"><i className="fa fa-external-link" /></a>)
     },
@@ -88,14 +97,25 @@ var LinkContainer = React.createClass({
                 { <ToolTip
                            active={ this.state.isURLVisable }
                            position="bottom"
-                           arrow="center"
+                           arrow="left"
                            tooltipTimeout={ 0 }
                            parent={ "#" + this.state.fullLinkID }>
-                      { <AutosizeInput
-                                       inputClassName="link-url"
-                                       placeholder="http://diapers.com"
-                                       value={ this.state.url }
-                                       onChange={ this.handleURLChange } /> }
+                      { <div>
+                            <span>Text:</span>
+                            <AutosizeInput
+                                           inputClassName="link-text"
+                                           placeholder="link"
+                                           value={ this.state.text }
+                                           onChange={ this.handleTextChange }
+                                           onClick={ this.handleShowURL } />
+                            <br/>
+                            <span>URL:</span>
+                            <AutosizeInput
+                                           inputClassName="link-url"
+                                           placeholder="http://diapers.com"
+                                           value={ this.state.url }
+                                           onChange={ this.handleURLChange } />
+                        </div> }
                   </ToolTip> }
             </div>
         )

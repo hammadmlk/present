@@ -55,8 +55,17 @@ var BulletContainer = React.createClass({
     render: function() {
         return (
             <div className="bullet row valign-wrapper">
-                <div className="col s2 valign">
-                    { this.getDeleteButtonIfNeeded() }
+                <div className="col s2 valign show-only-on-buttet-hover">
+                    <Button
+                            variant="edit-bullet"
+                            color="red"
+                            fontAwesomeClassName="fa-trash"
+                            onClick={ this.handleDelete } />
+                    <Button
+                            variant="edit-bullet"
+                            color="green"
+                            fontAwesomeClassName="fa-link"
+                            onClick={ this.handleAddLink } />
                 </div>
                 <div className="col s10">
                     <AutosizeInput
@@ -68,12 +77,9 @@ var BulletContainer = React.createClass({
                                       className="text"
                                       value={ this.state.text }
                                       onChange={ this.handleTextChange }
-                                      placeholder={ "some thing you wanna share here?" } />
+                                      placeholder={ "Write something cool here?" } />
                     <div className="link-list">
                         { this.getLinkList() }
-                        <Button className="add-link-button" label="" onClick={ this.handleAddLink }>
-                            <i className="fa fa-plus" />
-                        </Button>
                     </div>
                 </div>
             </div>
@@ -99,15 +105,6 @@ var BulletContainer = React.createClass({
                                   slideID={ this.props.slideID }
                                   bulletID={ this.props.id } />; // bulletID
         }.bind(this));
-    },
-    getDeleteButtonIfNeeded: function() {
-        // returns button if text is blank
-        if (!this.state.text) {
-            return (<Button size="large" color="red" onClick={ this.handleDelete }>
-                        <i className="fa fa-trash" />
-                    </Button>)
-        }
-        return (<i/>)
     }
 })
 

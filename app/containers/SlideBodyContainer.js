@@ -18,14 +18,9 @@ const SlideBodyContainer = React.createClass({
             <div className="slide-body valign-wrapper">
                 <div className="bullet-list valign center-block">
                     { this.getBulletList() }
-                    <Button
-                            className="add-bullet-button center-block"
-                            size="large"
-                            variant="round"
-                            color="green"
-                            onClick={ this.handleAddBullet }>
-                        <i className="fa fa-plus" />
-                    </Button>
+                    <div className="center-align">
+                        <Button variant="edit-slide" fontAwesomeClassName="fa-plus-circle" onClick={ this.handleAddBullet } />
+                    </div>
                 </div>
             </div>
         )

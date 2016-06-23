@@ -33,8 +33,20 @@ $colors: $slideColor1, $slideColor2, $slideColor3, $slideColor4, $slideColor5, $
             background-color: rgba(nth($colors, $i), 0.6);
         }
 
-        .link {
+        .button, .link {
             color: rgba(nth($colors, $i), 0.6);
+        }
+
+        .bullet {
+            .show-only-on-buttet-hover {
+                visibility: hidden;
+            }
+
+            &:hover, &:focus {
+                .show-only-on-buttet-hover {
+                    visibility: visible;
+                }
+            }
         }
     }
 }

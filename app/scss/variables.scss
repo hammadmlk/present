@@ -26,18 +26,26 @@ $element-bottom-margin: $gutter-width * 2 / 3 !default;
 /* Slide
    ========================================================================== */
 
-$slide-heading-background-color-default: aquamarine;
+$slide-heading-background-color: aquamarine;
 $slide-title-text-color: white;
+
+/* Bullet
+   ========================================================================== */
+$bullet-hover-border: 1px solid;
+$bullet-padding: 1rem;
+$bullet-tag-font-size: 1rem;
+$bullet-text-font-size: 1.5rem;
 
 /* Button
    ========================================================================== */
 
-// round
-$button-round-size: 2rem;
-$button-round-small-size: 1rem;
-$button-round-large-size: 1rem;
-
-//font
+// default
 $button-font-size: 1rem;
-$button-font-small-size: 0.5rem;
-$button-font-large-size: 1.5rem;
+
+// edit-slide button
+$button-edit-slide-font-size: 1.5rem;
+$button-edit-slide-hover-font-size: 2rem;
+
+// edit-bullet button
+$button-edit-bullet-font-size: 1rem;
+$button-edit-bullet-hover-font-size: 1.5rem;
