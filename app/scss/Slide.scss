@@ -22,9 +22,11 @@ $slideColor2: rgb(255, 0, 0);
 $slideColor3: rgb(155, 25, 55);
 $slideColor4: rgb(77, 33, 0);
 $slideColor5: rgb(99, 199, 57);
-$slideColor6: rgb(3, 35, 255);
+$slideColor6: rgb(255, 202, 0);
+$slideColor7: rgb(5, 57, 66);
+$slideColor8: rgb(202, 96, 220);
 
-$colors: $slideColor1, $slideColor2, $slideColor3, $slideColor4, $slideColor5, $slideColor6;
+$colors: $slideColor1, $slideColor2, $slideColor3, $slideColor4, $slideColor5, $slideColor6, $slideColor7, $slideColor8;
 
 @for $i from 1 through length($colors) {
     .slide-color-#{$i} {
