@@ -10,15 +10,15 @@ const databaseController = require('../dynamodb/databaseController')
 const socketApiV0 = function(io) {
     io.on('connection', function(socket) {
 
-        // TODO: We dont want to emit to all sockets every time a client connects
-        emitPresentationData(io, 1);
+        // sent data to the socket that just connected
+        socketEmitPresentationData(socket, 1);
 
         socket.on('update slide title', function(data) {
             const presentationID = data.presentationID;
             databaseController.putSlide(data.presentationID, data.slideID, "title", data.newValue)
                 .then(function(res) {
                     console.log("update slide title RES", res)
-                    emitPresentationData(io, presentationID)
+                    broadcastPresentationData(socket, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
@@ -32,7 +32,7 @@ const socketApiV0 = function(io) {
             databaseController.putSlide(data.presentationID, data.slideID, "subTitle", data.newValue)
                 .then(function(res) {
                     console.log("update slide subTitle RES", res)
-                    emitPresentationData(io, presentationID)
+                    broadcastPresentationData(socket, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
@@ -49,7 +49,7 @@ const socketApiV0 = function(io) {
             databaseController.putBullet(presentationID, slideID, bulletID, "txt", newValue)
                 .then(function(res) {
                     console.log("update bullet text RES", res)
-                    emitPresentationData(io, presentationID)
+                    broadcastPresentationData(socket, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
@@ -66,7 +66,7 @@ const socketApiV0 = function(io) {
             databaseController.putBullet(presentationID, slideID, bulletID, "tag", newValue)
                 .then(function(res) {
                     console.log("update bullet tag RES", res)
-                    emitPresentationData(io, presentationID)
+                    broadcastPresentationData(socket, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
@@ -84,7 +84,7 @@ const socketApiV0 = function(io) {
             databaseController.putLink(presentationID, slideID, bulletID, linkID, "txt", newValue)
                 .then(function(res) {
                     console.log("update link text RES", res)
-                    emitPresentationData(io, presentationID)
+                    broadcastPresentationData(socket, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
@@ -102,7 +102,7 @@ const socketApiV0 = function(io) {
             databaseController.putLink(presentationID, slideID, bulletID, linkID, "href", newValue)
                 .then(function(res) {
                     console.log("update link url RES", res)
-                    emitPresentationData(io, presentationID)
+                    broadcastPresentationData(socket, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
@@ -117,7 +117,7 @@ const socketApiV0 = function(io) {
             databaseController.addBullet(presentationID, slideID)
                 .then(function(res) {
                     console.log("add bullet RES", res)
-                    emitPresentationData(io, presentationID)
+                    ioEmitPresentationData(io, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
@@ -133,7 +133,7 @@ const socketApiV0 = function(io) {
             databaseController.addLink(presentationID, slideID, bulletID)
                 .then(function(res) {
                     console.log("add link RES", res)
-                    emitPresentationData(io, presentationID)
+                    ioEmitPresentationData(io, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
@@ -149,7 +149,7 @@ const socketApiV0 = function(io) {
             databaseController.deleteBullet(presentationID, slideID, bulletID)
                 .then(function(res) {
                     console.log("delete bullet RES", res)
-                    emitPresentationData(io, presentationID)
+                    ioEmitPresentationData(io, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
@@ -166,7 +166,7 @@ const socketApiV0 = function(io) {
             databaseController.deleteLink(presentationID, slideID, bulletID, linkID)
                 .then(function(res) {
                     console.log("delete link RES", res)
-                    emitPresentationData(io, presentationID)
+                    ioEmitPresentationData(io, presentationID)
                 })
                 .catch(function(err) {
                     // emit error
@@ -181,12 +181,27 @@ module.exports = socketApiV0;
 
 // HELPERS
 
-var emitPresentationData = function(io, presentationID) {
+// sending to all clients except sender
+var broadcastPresentationData = function(socket, presentationID) {
+    _emitPresentationData(socket.broadcast, presentationID)
+}
+
+// sending to sender-client only
+var socketEmitPresentationData = function(socket, presentationID) {
+    _emitPresentationData(socket, presentationID)
+}
+
+// sending to all clients, include sender
+var ioEmitPresentationData = function(io, presentationID) {
+    _emitPresentationData(io.sockets, presentationID)
+}
+
+var _emitPresentationData = function(connection, presentationID) {
 
     var presentationData = databaseController.getPresentation(presentationID)
         .then(function(dbPresentation) {
-            var clientPresentation = convertPresentationDBModelToReactClientModel(dbPresentation);
-            io.sockets.emit("presentation has new data", clientPresentation);
+            var clientPresentation = _convertPresentationDBModelToReactClientModel(dbPresentation);
+            connection.emit("presentation has new data", clientPresentation);
         })
         .catch(function(err) {
             // emit error
@@ -195,7 +210,7 @@ var emitPresentationData = function(io, presentationID) {
         })
 }
 
-var convertPresentationDBModelToReactClientModel = function(dbModel) {
+var _convertPresentationDBModelToReactClientModel = function(dbModel) {
     var clientModel = {};
     clientModel.id = dbModel.UID;
     clientModel.title = dbModel.title;
