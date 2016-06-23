@@ -66,7 +66,7 @@ var LinkContainer = React.createClass({
     },
     // returns delete button if text is blank, otherwise returns external link anchor
     getDeleteButtonOrAnchor: function() {
-        if (!this.props.text) {
+        if (!this.state.text) {
             return (<Button
                             variant="edit-link"
                             color="red"
